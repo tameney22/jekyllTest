@@ -1,0 +1,43 @@
+toc:
+  - title: About
+    subfolderitems:
+      - page: Versioning
+        url: /about/versioning.html
+      - page: Bibliography
+        url: /about/bibliography.html
+      - page: Cite our work
+        url: /about/citation.html
+      - page: Source Code
+        url: https://github.com/SteveWLU/hda
+      - page: Technical Notes
+        url: /about/technical-notes.html
+  - title: Praxis
+    subfolderitems:
+      - page: General Criteria
+        url: /test-praxis.html
+      - page: Berlin Criteria
+        url: /b-praxis.html
+      - page: Turin Criteria
+        url: /t-praxis.html
+      - page: Padua Criteria
+        url: /p-praxis.html
+      - page: Barbieri Fragment Criteria
+        url: /br-praxis.html
+  - title: Editions
+    subfolderitems:
+      - page: Berlin (B)
+        url: /editions/b-intro.html
+      - page: Turin (T)
+        url: /editions/t-intro.html
+      - page: Padua (P)
+        url: /editions/p-intro.html
+      - page: Barbieri Fragment (Br)
+        url: /editions/br-intro.html
+  - title: Translation
+    subfolderitems:
+      - page: Berlin Translation
+        url: /editions/bt-intro.html
+  - title: Search
+    subfolderitems:
+      - page: Search Anywhere!
+        url: /search/
