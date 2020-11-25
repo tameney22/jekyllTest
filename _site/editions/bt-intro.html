@@ -13,7 +13,7 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="/assets/scripts/modernizr.custom.js"></script>
+    <script src="http://tameney22.github.io/jekyllTest/assets/scripts/modernizr.custom.js"></script>
     <script src="../assets/js/CETEI.js"></script>
 </head>
 
@@ -21,7 +21,7 @@
 <body>
 <header role="banner" class="page-header" id="top">
 <div class="headerleft">
-<h1 id="site-title"><a href="https://yosephtamene.com/jekyllTest" class="site-title">Huon d'Auvergne Digital Archive</a></h1>
+<h1 id="site-title"><a href="http://tameney22.github.io/jekyllTest" class="site-title">Huon d'Auvergne Digital Archive</a></h1>
 
 
 </div>
@@ -163,28 +163,28 @@
 
 <div class="footer-row">
   <div class="footer-column-1">
-    <img id="logo_wludh" src="/assets/images/logos/logo_wludh.png" alt="DHAT logo" style="width:60%">
+    <img id="logo_wludh" src="http://tameney22.github.io/jekyllTest/assets/images/logos/logo_wludh.png" alt="DHAT logo" style="width:60%">
   </div>
   <div class="footer-column-1">
-    <img id="logo_loyola" src="/assets/images/logos/logo_loyola.svg" alt="DHAT logo" style="width:60%">
+    <img id="logo_loyola" src="http://tameney22.github.io/jekyllTest/assets/images/logos/logo_loyola.svg" alt="DHAT logo" style="width:60%">
   </div>
   <div class="footer-column-1">
-    <img id="logo_unf" src="/assets/images/logos/logo_unf.svg" alt="DHAT logo" style="width:60%">
+    <img id="logo_unf" src="http://tameney22.github.io/jekyllTest/assets/images/logos/logo_unf.svg" alt="DHAT logo" style="width:60%">
   </div>
   <div class="footer-column-1">
-    <img id="logo_neh" src="/assets/images/logos/logo_neh.png" alt="DHAT logo" style="width:60%">
+    <img id="logo_neh" src="http://tameney22.github.io/jekyllTest/assets/images/logos/logo_neh.png" alt="DHAT logo" style="width:60%">
   </div>
 </div>
 
 <div class="footer-row">
   <div class="footer-column-2">
-    <img id="logo_marucelliana" src="/assets/images/logos/logo_marucelliana.png" alt="DHAT logo" style="width:25%">
+    <img id="logo_marucelliana" src="http://tameney22.github.io/jekyllTest/assets/images/logos/logo_marucelliana.png" alt="DHAT logo" style="width:25%">
   </div>
   <div class="footer-column-2">
-    <img id="logo_archiginnasio" src="/assets/images/logos/logo_archiginnasio.png" alt="DHAT logo" style="width:20%">
+    <img id="logo_archiginnasio" src="http://tameney22.github.io/jekyllTest/assets/images/logos/logo_archiginnasio.png" alt="DHAT logo" style="width:20%">
   </div>
   <div class="footer-column-2">
-    <img id="logo_vescovile" src="/assets/images/logos/logo_vescovile.jpg" alt="DHAT logo" style="width:85%">
+    <img id="logo_vescovile" src="http://tameney22.github.io/jekyllTest/assets/images/logos/logo_vescovile.jpg" alt="DHAT logo" style="width:85%">
   </div>
 </div>
 
@@ -205,7 +205,7 @@ Jekyll static pages</a> and the <a href="https://www.tei-c.org/" title="Text Enc
 var CETEIcean = new CETEI();
 
 
-  CETEIcean.getHTML5("/editions/b.xml", function(data) {
+  CETEIcean.getHTML5("http://tameney22.github.io/jekyllTest/editions/b.xml", function(data) {
 
     var intro = data.querySelector("tei-history")
         document.getElementById("teiHeader-B").innerHTML = ""
@@ -213,7 +213,7 @@ var CETEIcean = new CETEI();
         CETEIcean.addStyle(document, data)
   });
 
-  CETEIcean.getHTML5("/editions/t.xml", function(data) {
+  CETEIcean.getHTML5("http://tameney22.github.io/jekyllTest/editions/t.xml", function(data) {
 
     var intro = data.querySelector("tei-history")
         document.getElementById("teiHeader-T").innerHTML = ""
@@ -221,7 +221,7 @@ var CETEIcean = new CETEI();
         CETEIcean.addStyle(document, data)
   });
 
-  CETEIcean.getHTML5("/editions/p.xml", function(data) {
+  CETEIcean.getHTML5("http://tameney22.github.io/jekyllTest/editions/p.xml", function(data) {
 
     var intro = data.querySelector("tei-history")
         document.getElementById("teiHeader-P").innerHTML = ""
@@ -229,7 +229,7 @@ var CETEIcean = new CETEI();
         CETEIcean.addStyle(document, data)
   });
 
-  CETEIcean.getHTML5("/editions/br.xml", function(data) {
+  CETEIcean.getHTML5("http://tameney22.github.io/jekyllTest/editions/br.xml", function(data) {
 
     var intro = data.querySelector("tei-history")
         document.getElementById("teiHeader-Br").innerHTML = ""
@@ -237,7 +237,7 @@ var CETEIcean = new CETEI();
         CETEIcean.addStyle(document, data)
   });
 
-  CETEIcean.getHTML5("/editions/translation-b.xml", function(data) {
+  CETEIcean.getHTML5("http://tameney22.github.io/jekyllTest/editions/translation-b.xml", function(data) {
 
     var intro = data.querySelector("tei-history")
         document.getElementById("teiHeader-BT").innerHTML = ""

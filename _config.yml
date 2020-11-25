@@ -17,8 +17,8 @@ title: Huon d'Auvergne Digital Archive
 description: "The Huon d'Auvergne Digital Archive publishes for the first time
 all four extant Franco-Italian manuscripts of the Huon d'Auvergne romance-epic."
 tagline: "A digital edition of Huon d'Auvergne, a pre-modern, Franco-Italian Epic"
-baseurl: "/jekyllTest" # the subpath of your site, e.g. /blog
-url: "https://yosephtamene.com" # the base hostname & protocol for your site, e.g. http://example.com
+baseurl: "http://tameney22.github.io/jekyllTest" # the subpath of your site, e.g. /blog
+url: "http://tameney22.github.io/jekyllTest" # the base hostname & protocol for your site, e.g. http://example.com
 twitter_username: 
 github_username: tameney22
 
