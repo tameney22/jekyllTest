@@ -2,6 +2,11 @@
 <html lang="{{ page.lang | default: site.lang | default: "en" }}">
 
 {% include head.html %}
+<style>
+  .nums {
+    color: blue;
+  }
+</style>
 
 <body>
 
@@ -291,6 +296,19 @@ $("input[name='show-french'").change(function(){
 $("input[name='notes'").change(function(){
   $("#edition-notes").toggle();
   });
+
+
+// Writing the line numbers in increments of 5
+console.log("REACHED!")
+
+$('tei-l').each((index, line) => {
+  const lineNum = line.getAttribute('n');
+  if (lineNum % 5 == 0) {
+    const text = line.innerHTML;
+    console.log(text)
+    line.innerHTML = `<span class="nums">${lineNum}</span> ` + text;
+  }
+});
 
 </script>
 

@@ -6,22 +6,27 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width">
     <title>folio 173r</title>
-    <link rel="stylesheet" href="http://tameney22.github.io/jekyllTest/assets/css/CETEIcean.css">
-    <link rel="stylesheet" href="http://tameney22.github.io/jekyllTest/assets/css/main.css">
+    <link rel="stylesheet" href="/assets/css/CETEIcean.css">
+    <link rel="stylesheet" href="/assets/css/main.css">
     <link href='https://fonts.googleapis.com/css?family=Oswald:400,700' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab' rel='stylesheet' type='text/css'>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Barlow+Semi+Condensed" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="http://tameney22.github.io/jekyllTest/assets/scripts/modernizr.custom.js"></script>
-    <script src="http://tameney22.github.io/jekyllTest/assets/js/CETEI.js"></script>
+    <script src="/assets/scripts/modernizr.custom.js"></script>
+    <script src="/assets/js/CETEI.js"></script>
 </head>
+<style>
+  .nums {
+    color: blue;
+  }
+</style>
 
 <body>
 
 <header role="banner" class="page-header" id="top">
 <div class="headerleft">
-<h1 id="site-title"><a href="http://tameney22.github.io/jekyllTest" class="site-title">Huon d'Auvergne Digital Archive</a></h1>
+<h1 id="site-title"><a href="http://localhost:4000" class="site-title">Huon d'Auvergne Digital Archive</a></h1>
 
 
 </div>
@@ -142,9 +147,9 @@
 
   <!-- HTML for transcription and folio navigation -->
  
-  <a href="http://tameney22.github.io/jekyllTest/r-edition/r-edition-172v.html" class="prev">&#8617;</a>
+  <a href="/r-edition/r-edition-172v.html" class="prev">&#8617;</a>
   folio 173r
-  <a href="http://tameney22.github.io/jekyllTest/r-edition/r-edition-173v.html" class="next">&#8618;</a>
+  <a href="/r-edition/r-edition-173v.html" class="next">&#8618;</a>
 
 
 </div>
@@ -187,7 +192,7 @@
   <div id="openseadragon1"></div>
 
 </div>
-<script src="http://tameney22.github.io/jekyllTest/assets/js/openseadragon/openseadragon.min.js"></script>
+<script src="/assets/js/openseadragon/openseadragon.min.js"></script>
 
 <script type="text/javascript">
     var viewer = OpenSeadragon({
@@ -344,6 +349,19 @@ $("input[name='show-french'").change(function(){
 $("input[name='notes'").change(function(){
   $("#edition-notes").toggle();
   });
+
+
+// Writing the line numbers in increments of 5
+console.log("REACHED!")
+
+$('tei-l').each((index, line) => {
+  const lineNum = line.getAttribute('n');
+  if (lineNum % 5 == 0) {
+    const text = line.innerHTML;
+    console.log(text)
+    line.innerHTML = `<span class="nums">${lineNum}</span> ` + text;
+  }
+});
 
 </script>
 
