@@ -299,8 +299,7 @@ $("input[name='notes'").change(function(){
 
 
 // Writing the line numbers in increments of 5
-console.log("REACHED!")
-
+/*
 $('tei-l').each((index, line) => {
   const lineNum = line.getAttribute('n');
   if (lineNum % 5 == 0) {
@@ -309,6 +308,24 @@ $('tei-l').each((index, line) => {
     line.innerHTML = `<span class="nums">${lineNum}</span> ` + text;
   }
 });
+*/
+
+// The following is for the search result scrolling to the line
+$(document).ready(function () {
+    // Handler for .ready() called.
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const lineNum = urlParams.get('lineNum');
+
+    console.log(lineNum);
+    if (lineNum) {
+      console.log("CALLED!")
+        $('html, body').animate({
+          scrollTop: $(`tei-l[n='${lineNum}']`).offset().top
+        }, 'slow');
+    }
+});
+
 
 </script>
 

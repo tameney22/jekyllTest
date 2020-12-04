@@ -19,15 +19,14 @@ fetch("../assets/js/search/index.json")
             this.field('lineText')
 
             documents.forEach((doc) => {
-                theMap.set(doc.id, [doc.lineNum, doc.lineText, doc.manuscriptTitle])
+                theMap.set(doc.id, [doc.lineNum, doc.lineText, doc.manuscriptTitle, doc.page])
                 this.add(doc)
             }, this);
         });
 
         $('form').submit((e) => {
             e.preventDefault();
-            // matchList.innerHTML = '';
-            // matchLists.forEach((matchList) => matchL)
+            $('.match-list').html('');
             $('#results').show();
             const term = searchInput.value;
             var results = idx.search(term);
@@ -35,6 +34,7 @@ fetch("../assets/js/search/index.json")
 
             results.forEach((result) => {
                 const doc = theMap.get(result.ref);
+                const page = doc[3];
                 const manuTitle = doc[2];
                 const lineText = doc[1];
                 const lineNum = doc[0];
@@ -43,14 +43,14 @@ fetch("../assets/js/search/index.json")
                 const colonIndex = result.ref.indexOf(":") + 1;
                 const shortName = result.ref.substring(colonIndex + 1);
                 // console.log(shortName)
-                // console.log(`#${shortName}.match-list`)
+                const slug = ("0".repeat(4 - page.length)) + page;
                 
                 $(`#${shortName} .match-list`).append(`
                 <div class="card">
                     <div class="card-body">
                         <p class="card-text">${highlighted}</p>
                         <h6 class="card-subtitle mb-2 text-muted">${manuTitle}</h6>
-                        <p class="card-subtitle mb-2 text-muted"><b>Line Number:</b> ${lineNum}</p>
+                        <a href="../${shortName}-edition/${shortName}-edition-${slug}.html?lineNum=${lineNum}" class="card-link">Go Here</a>
                     </div>
                 </div>
                 `);
