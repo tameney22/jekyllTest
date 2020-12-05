@@ -17,16 +17,26 @@
     <script src="/jekyllTest/assets/js/CETEI.js"></script>
 </head>
 <style>
-  .nums {
-    color: blue;
+  @keyframes blink {
+    0%   {background-color:yellow;}
+    50% {background-color: white;}
+    100% {background-color:yellow;}
   }
+
+  #highlight {
+    background-color: yellow;
+    animation-name: blink;
+    animation-duration: 2s;
+    animation-iteration-count: 3;
+  }
+
 </style>
 
 <body>
 
 <header role="banner" class="page-header" id="top">
 <div class="headerleft">
-<h1 id="site-title"><a href="http://www.yosephtamene.com" class="site-title">Huon d'Auvergne Digital Archive</a></h1>
+<h1 id="site-title"><a href="http://localhost:4000" class="site-title">Huon d'Auvergne Digital Archive</a></h1>
 
 
 </div>
@@ -184,9 +194,9 @@
 </span><span class="username"></span>Source Code</a>
   </div>
  
-  <div id="status">
-    <p >Edition Status: <i class="progress">In progress</i></p>
-  </div>
+  <!-- Insert Status Update from TEI header <change> tag (line 213) -->
+  <div id="status"></div>
+
 </div>
 </div>
 
@@ -220,6 +230,8 @@
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
 <script>
+  // ADD LINE NUMBERS
+  
   // CODE TO HIDE A PAGE
   function showPage(page) {
     // Hide all text that does not belong to the page indicated
@@ -286,6 +298,12 @@ var CETEIcean = new CETEI()
   document.getElementById("TEI").innerHTML = ""
   document.getElementById("TEI").appendChild(data)
   CETEIcean.addStyle(document, data)
+
+  // Get status from TEI header <change> tag and place in the update div (line 96)
+  var update = data.querySelector("tei-change")
+    document.getElementById("status").innerHTML = ""
+    document.getElementById("status").appendChild(update)
+    CETEIcean.addStyle(document, data)
 
   //get current page
   const currentMilestone = document.getElementById("TEI").getAttribute("data-milestone");
@@ -363,35 +381,27 @@ $("input[name='notes'").change(function(){
   $("#edition-notes").toggle();
   });
 
+  // The following is for the search result scrolling to the line
+  const queryString = window.location.search;
+  const urlParams = new URLSearchParams(queryString);
+  const lineNum = urlParams.get('lineNum');
 
-// Writing the line numbers in increments of 5
-/*
-$('tei-l').each((index, line) => {
-  const lineNum = line.getAttribute('n');
-  if (lineNum % 5 == 0) {
-    const text = line.innerHTML;
-    console.log(text)
-    line.innerHTML = `<span class="nums">${lineNum}</span> ` + text;
-  }
-});
-*/
-
-// The following is for the search result scrolling to the line
-$(document).ready(function () {
-    // Handler for .ready() called.
-    const queryString = window.location.search;
-    const urlParams = new URLSearchParams(queryString);
-    const lineNum = urlParams.get('lineNum');
-
-    console.log(lineNum);
-    if (lineNum) {
-      console.log("CALLED!")
+  // Check every 100ms if element exists before trying to highlight and scroll to it
+  var checkExist = setInterval(function() {
+   if ($(`tei-l[n="${lineNum}"]`).length) {
+      if (lineNum) {
+        const lineText = $(`tei-l[n="${lineNum}"]`).html();
+        
         $('html, body').animate({
-          scrollTop: $(`tei-l[n='${lineNum}']`).offset().top
+          scrollTop: $(`tei-l[n="${lineNum}"]`).offset().top
         }, 'slow');
-    }
-});
-
+        
+        $(`tei-l[n="${lineNum}"]`).html(`<span id="highlight">${lineText}</span>`);
+      }
+      clearInterval(checkExist);
+   }
+}, 100); 
+    
 
 </script>
 

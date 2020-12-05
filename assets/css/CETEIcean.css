@@ -55,10 +55,6 @@ tei-acquisition {
   margin-top: 0;
   margin-bottom: 0;
 }
-tei-acquisition:before {
-  font-weight: bold;
-  content: "acquisition";
-}
 tei-activity {
   display: block;
 }
@@ -711,6 +707,12 @@ tei-hi[rend="black-initial"] {
   color: black;
   font-size: -webkit-xxx-large;
 }
+tei-hi[rend="angle"]:before {
+  content: "<";
+}
+tei-hi[rend="angle"]:after {
+  content: ">";
+}
 tei-hi {
   /* GLS: do we want to bold this or change the background color? */
 }
@@ -803,11 +805,66 @@ tei-l {
   line-height: 1.5em;
 }
 
-tei-1 + tei-1 {
-  
+/* This put 1's every fifth line
+tei-l:before {
+  counter-increment: line 1;
+  content: counter(line);
+  width: 2em;
+  display: block;
+  float: left;
+  margin-left: -2em;
+}
+
+tei-l:not(:nth-child(5n)):before {
+  visibility: hidden;
+}
+
+// Add line numbers (line 545)
+			let parents = ["tei-sp", "tei-ab", "tei-p", "tei-div", "tei-lem", "tei-lg"];
+			section.find("tei-l").each(function(i,elt){ // Do this only for lines?
+				let e = $(elt);
+				if (Number(e.attr("n")) % 5 == 0 && (parents.indexOf(elt.parentElement.localName) >= 0)) {
+					e.attr("data-num",e.attr("n"));
+				}
+      });
+      
+  https://github.com/DigitalLatin/viewer/blob/1f2135a2b9377d58f33ca3639a912a719bff2bc9/src/appcrit.js
+
+Source: https://stackoverflow.com/questions/10856070/line-numbers-every-nth-line-with-css-counters
+ */
+
+ /*
+tei-l:nth-of-type(5n+0) {
+   color: green;
+ }
+
+tei-l[n]:nth-of-type(5n+0):before {
+  content: attr(n);
+  content: "*";
+}
+*/
+
+tei-l [rend="red"] {
+  display: block;
+  color: black;
+  font-size: -webkit-xxx-large;
+}
+
+tei-l[tei-data-n]:before {
+  content: attr(n);
+  color: #5f0000;
+  position: absolute;
+  left: 1em;
 }
 
 /*
+tei-l[data-num]:before {
+  content: attr(data-num);
+  position: absolute;
+  left: 1em;
+}
+Source: https://digitallatin.github.io/viewer/calpurnius.html#poem1
+
 tei-l::before {
   content: attr(n) ". ";
 }*/
@@ -1097,16 +1154,6 @@ tei-normalization {
   /* Empty Rule Set */
 }
 
-tei-lg tei-note:before {
-/*content: attr(id);*/
-content:"*";
-}
-
-tei-note:before {
-  /*&content: "Line " attr(n) ": ";*/
-  content:"Line " attr(n) ": ";
-}
-
 tei-note[target] {
   display: block;
   line-height: 1.5; 
@@ -1120,8 +1167,6 @@ tei-note[target] {
   -moz-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
   box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.25);
   */
-
-
 
 tei-notesStmt {
   /* do we want to box each individual <note> if they're in a <notesStmt>? */
@@ -1748,10 +1793,11 @@ tei-teiHeader {
 tei-border-radius: 15px;
 tei-border: 1px solid black;
 tei-background:white;
-tei-*/
+tei-
   margin-top: 2em;
   margin-bottom: 2em;
-}
+} */
+
 tei-TEI > tei-text {
   display: block;
   /*
