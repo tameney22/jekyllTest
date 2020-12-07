@@ -29,7 +29,26 @@ fetch("../assets/js/search/index.json")
             $('.match-list').html('');
             $('#results').show();
             const term = searchInput.value;
-            var results = idx.search(term);
+            var searchFor;
+            // Check if wildcard search is requested
+            const wc = $('#wildcard').val();
+            switch (wc) {
+                case "startsWith":
+                    searchFor = term + "*";
+                    break;
+
+                case "endsWith":
+                    searchFor = "*" + term;
+                    break;
+            
+                default:
+                    searchFor = term;
+                    break;
+            }
+
+            console.log(searchFor)
+
+            var results = idx.search(searchFor);
             const resultsCount = results.length;
 
             results.forEach((result) => {
@@ -38,7 +57,7 @@ fetch("../assets/js/search/index.json")
                 const manuTitle = doc[2];
                 const lineText = doc[1];
                 const lineNum = doc[0];
-                const highlighted = highlightTerm(lineText, term);
+
                 // Index of the space in the ref "1: br"
                 const colonIndex = result.ref.indexOf(":") + 1;
                 const shortName = result.ref.substring(colonIndex + 1);
@@ -48,13 +67,16 @@ fetch("../assets/js/search/index.json")
                 $(`#${shortName} .match-list`).append(`
                 <div class="card">
                     <div class="card-body">
-                        <p class="card-text">${highlighted}</p>
+                        <p class="card-text">${lineText}</p>
                         <h6 class="card-subtitle mb-2 text-muted">${manuTitle}</h6>
                         <a href="../${shortName}-edition/${shortName}-edition-${slug}.html?lineNum=${lineNum}" class="card-link">Go Here</a>
                     </div>
                 </div>
                 `);
             });
+
+            // Highlight the term in each search result using the mark.js library
+            $(".card-text").mark(term);
 
             // For displaying the number of results
             if (resultsCount > 0) {
@@ -64,10 +86,3 @@ fetch("../assets/js/search/index.json")
             }
         });
     });
-
-function highlightTerm(text, term) {
-    const reg = new RegExp(term, "gi");
-    const index = text.toLowerCase().indexOf(term.toLowerCase());
-    const word = text.substring(index, index + term.length);
-    return text.replace(reg, `<span id="highlight">${word}</span>`);
-}
