@@ -68,7 +68,6 @@ fetch("../assets/js/search/index.json")
                 <div class="card">
                     <div class="card-body">
                         <p class="card-text">${lineText}</p>
-                        <h6 class="card-subtitle mb-2 text-muted">${manuTitle}</h6>
                         <a href="../${shortName}-edition/${shortName}-edition-${slug}.html?lineNum=${lineNum}" class="card-link">Go Here</a>
                     </div>
                 </div>
