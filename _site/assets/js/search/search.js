@@ -31,7 +31,7 @@ fetch("../assets/js/search/index.json")
             const term = searchInput.value;
             var searchFor;
             // Check if wildcard search is requested
-            const wc = $('#wildcard').val();
+            const wc = $('input[name=wildcard]:checked').val();
             switch (wc) {
                 case "startsWith":
                     searchFor = term + "*";
