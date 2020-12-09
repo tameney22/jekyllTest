@@ -10,23 +10,19 @@ $('#results').hide();
 var documents, idx;
 const theMap = new Map();
 
-function removeAccents(str) {
-    return str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-}
-
 fetch("../assets/js/search/index.json")
     .then(res => res.json())
     .then(data => documents = data)
     .then(() => {
         idx = lunr(function() {
+            // French and Italian language support
+            this.use(lunr.multiLanguage('fr', 'it'));
             this.ref('id')
             this.field('lineText')
 
             documents.forEach((doc) => {
                 const id = doc.id;
-                // remove the accents from the text
-                const lineText = removeAccents(doc.lineText);
-                // Add the original text to the map so that the results have accents
+                const lineText = doc.lineText;
                 theMap.set(doc.id, [doc.lineNum, doc.lineText, doc.manuscriptTitle, doc.page]);
                 this.add({id, lineText});
             }, this);
@@ -40,18 +36,17 @@ fetch("../assets/js/search/index.json")
             var searchFor;
             // Check if wildcard search is requested
             const wc = $('input[name=wildcard]:checked').val();
-            // Convert to an accent-less string
             switch (wc) {
                 case "startsWith":
-                    searchFor = removeAccents(term) + "*";
+                    searchFor = term + "*";
                     break;
 
                 case "endsWith":
-                    searchFor = "*" + removeAccents(term);
+                    searchFor = "*" + term;
                     break;
             
                 default:
-                    searchFor = removeAccents(term);
+                    searchFor = term;
                     break;
             }
 
