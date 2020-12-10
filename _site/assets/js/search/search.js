@@ -27,11 +27,19 @@ fetch("../assets/js/search/index.json")
                 this.add({id, lineText});
             }, this);
         });
+        
+        // After the loop finishes, hide the "Loading Search Index..." text
+        $('#loadingText').hide();
+        $('#loadingText h4').html('Searching...');
 
         $('form').submit((e) => {
             e.preventDefault();
+            // Show searching text
+            $('#loadingText').show();
+
             $('.match-list').html('');
-            $('#results').show();
+            $('#results').hide();
+            
             const term = searchInput.value;
             var searchFor;
             // Check if wildcard search is requested
@@ -80,6 +88,10 @@ fetch("../assets/js/search/index.json")
 
             // Highlight the term in each search result using the mark.js library
             $(".card-text").mark(term);
+
+            // Hide the loading text, then show the results
+            $('#loadingText').hide();
+            $('#results').show();
 
             // For displaying the number of results
             if (resultsCount > 0) {
