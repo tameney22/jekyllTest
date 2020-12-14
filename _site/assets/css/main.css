@@ -314,6 +314,7 @@ h1, h2, h3, h4, h5, h6 {
 	font-family: 'Barlow Semi Condensed', sans-serif;
 	font-weight: 700;
 	color:#000;
+	font-size: revert;
 }
 *, *:before, *:after {
 	-webkit-box-sizing: border-box;
@@ -791,8 +792,8 @@ div#toc-header {
 
 
 div#toc {
-	width: 40%;
-	float: left;
+	/* width: 40%;
+	float: left; */
 	margin: 5% 0 0 10%;
 }
 
@@ -815,11 +816,11 @@ h1#ms-intro {
 	margin: 5% 0 0 5%;
 }
 img#toc {
-    float: left;
-    display: inline-block;
+    /* float: left;
+    display: inline-block; */
 	border: 2px solid #5f0000;
-	width: 40%;
-	margin: 5% 0 5% 5%;
+	/* width: 40%; */
+	/* margin: 5% 0 5% 5%; */
 }
 #toc ol {
 	font-size: small;
@@ -1052,6 +1053,13 @@ img#logo_marucelliana {
    Smaller screen styles
 -----------------------------------------------------*/
 @media only screen and (max-width: 992px) {
+/* --------------------------------------------------
+   ms intro styles
+-----------------------------------------------------*/
+
+div.thinwrapper {
+	width: 92%;
+}
 
 /*---------------------------------------------------
 	index page styles
