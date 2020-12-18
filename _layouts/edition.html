@@ -16,6 +16,12 @@
     animation-iteration-count: 3;
   }
 
+  .number {
+    color: white;
+    background-color: green;
+    padding: 3px;
+    border-radius: 5px;
+  }
 </style>
 
 <body>
@@ -91,17 +97,23 @@
           <div id="source-code">
               <a href="https://github.com/SteveWLU/hda/blob/development/editions/p.xml"><span class="icon icon--github">{% include icon-github.svg %}</span><span class="username">{{ include.username }}</span>Source Code</a>
           </div>
+
+          <!-- Testing line number checkbox -->
+          <div class="form-check form-check-inline">
+            <input class="form-check-input" type="checkbox" id="showLineNums" value="showLineNums">
+            <label class="form-check-label" for="showLineNums">Show line numbers</label>
+          </div>
           
           <!-- Insert Status Update from TEI header <change> tag (line 213) -->
           <div id="status"></div>
       </div>
     </div>
     <div class="row justify-content-md-center">
-      <!-- Insert TEI Content-->
-      <div class="col-sm-11 col-md-4" id="TEI" data-milestone="{{ page.milestone }}"></div>
-
       <!-- Insert OpenSeaDragon viewer and content -->
       <div class="col-sm-11 col-md-4" id="openseadragon1"></div>
+
+      <!-- Insert TEI Content-->
+      <div class="col-sm-11 col-md-4" id="TEI" data-milestone="{{ page.milestone }}"></div>
 
       <!-- Insert edition notes -->
       <div class="col-sm-11 col-md-4" id="edition-notes" data-milestone="{{ page.milestone }}">
@@ -125,7 +137,6 @@
     });
 
 </script>
-
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
@@ -239,9 +250,6 @@ var CETEIceanNotes = new CETEI()
   CETEIceanNotes.getHTML5("{{site.baseurl}}/editions/notes-translation-b.xml", function(data) {  
 {% endif %}
 
-  //document.getElementById("edition-notes").innerHTML = ""
-  //document.getElementById("edition-notes").appendChild(data)
-  //CETEIceanNotes.addStyle(document, data)
 
  // to get note IDs RAFF 10/19
   var visible_ids = Array.from(document.querySelectorAll('#TEI  tei-note:not(.hid_page')).map(function(n) {return n.getAttribute('xml:id')})
@@ -249,9 +257,8 @@ var CETEIceanNotes = new CETEI()
 /// Raff 10/19
     visible_ids.forEach(function (id) {
       if (id){
-        var note = data.querySelector('tei-note[target="#'+ id +'"]')
-        document.getElementById('edition-notes').appendChild(note)
-        console.log(note)
+        var note = data.querySelector('tei-note[target="#'+ id +'"]');
+        document.getElementById('edition-notes').appendChild(note);
       }
     });
 
@@ -308,20 +315,46 @@ $("input[name='notes'").change(function(){
 
   // Check every 100ms if element exists before trying to highlight and scroll to it
   var checkExist = setInterval(function() {
-   if ($(`tei-l[n="${lineNum}"]`).length) {
-      if (lineNum) {
-        const lineText = $(`tei-l[n="${lineNum}"]`).html();
-        
-        $('html, body').animate({
-          scrollTop: $(`tei-l[n="${lineNum}"]`).offset().top
-        }, 'slow');
-        
-        $(`tei-l[n="${lineNum}"]`).html(`<span id="highlight">${lineText}</span>`);
-      }
-      clearInterval(checkExist);
-   }
+  if ($(`tei-l[n="${lineNum}"]`).length) {
+    if (lineNum) {
+      const lineText = $(`tei-l[n="${lineNum}"]`).html();
+      
+      $('#TEI').animate({
+        scrollTop:  $(`tei-l[n="${lineNum}"]`).offset().top - $(`tei-l[n="${lineNum}"]`).parent().offset().top
+      }, 'slow');
+      
+      $(`tei-l[n="${lineNum}"]`).html(`<span id="highlight">${lineText}</span>`);
+    }
+    clearInterval(checkExist);
+  }
 }, 100); 
-    
+
+// The logic for line number display and toggle
+var loaded = false;
+$("#showLineNums").change(function() {
+  var value = $(this).attr('value');
+    if(this.checked) {
+      console.log("CHECKED")
+      //Do stuff
+      if (!loaded) {
+        loaded = true;
+        $('tei-l').each(function() {
+          console.log("REACHED")
+          var lineNum = $(this).attr('n');
+          if ($(this).text() != "" && lineNum % 5 == 0) {
+            this.innerHTML = `<span class="number">${lineNum}</span> ${this.innerHTML}`;
+          }
+        });
+      } else {
+        $(".number").show();
+      }
+    } else {
+      console.log("UNCHECKED")
+      $(".number").hide();
+    }
+});
+
+
 
 </script>
 
