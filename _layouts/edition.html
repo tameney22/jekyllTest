@@ -94,14 +94,26 @@
               <a href="{{site.baseurl}}/editions/facsimiles/r-facsimile.html" style="color: #5f0000">Rajna Notebook</a>
           </div>
         {% endif %}
-          <div id="source-code">
-              <a href="https://github.com/SteveWLU/hda/blob/development/editions/p.xml"><span class="icon icon--github">{% include icon-github.svg %}</span><span class="username">{{ include.username }}</span>Source Code</a>
-          </div>
+          
 
           <!-- Testing line number checkbox -->
           <div class="form-check form-check-inline">
             <input class="form-check-input" type="checkbox" id="showLineNums" value="showLineNums">
             <label class="form-check-label" for="showLineNums">Show line numbers</label>
+          </div>
+
+          <!-- Toggles for showing divs -->
+          <div class="form-check form-check-inline">
+            <input class="form-check-input toggleDiv" type="checkbox" id="showTEI" value="TEI" checked>
+            <label class="form-check-label" for="showTEI">Show TEI</label>
+          </div>
+          <div class="form-check form-check-inline">
+            <input class="form-check-input toggleDiv" type="checkbox" id="showManu" value="openseadragon1" checked>
+            <label class="form-check-label" for="showManu">Show Manuscript</label>
+          </div>
+
+          <div id="source-code">
+            <a href="https://github.com/SteveWLU/hda/blob/development/editions/p.xml"><span class="icon icon--github">{% include icon-github.svg %}</span><span class="username">{{ include.username }}</span>Source Code</a>
           </div>
           
           <!-- Insert Status Update from TEI header <change> tag (line 213) -->
@@ -353,6 +365,17 @@ $("#showLineNums").change(function() {
       $(".number").hide();
     }
 });
+
+// Logic to toggle showing divs
+$(".toggleDiv").change(function() {
+  var value = $(this).attr('value');
+    if(this.checked) {
+      $(`#${value}`).show();
+    } else {
+      $(`#${value}`).hide();
+    }
+});
+
 
 
 
