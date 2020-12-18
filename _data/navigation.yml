@@ -38,6 +38,4 @@ toc:
       - page: Berlin Translation
         url: /editions/bt-intro.html
   - title: Search
-    subfolderitems:
-      - page: Search Anywhere!
-        url: /search/
+    url: /search/
