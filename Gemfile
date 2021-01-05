@@ -33,5 +33,5 @@ gem "wdm", "~> 0.1.0" if Gem.win_platform?
 
 # The following two are for herkou deployment
 gem "rake"
-ruby "2.7.2"
+ruby "~> 2.7.1"
 
