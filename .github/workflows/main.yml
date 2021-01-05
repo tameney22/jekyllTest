@@ -12,15 +12,6 @@ jobs:
     steps:
       - name: Checkout master branch
         uses: actions/checkout@v2
-      - name: Install Jekyll
-        run: |
-          sudo gem install bundler jekyll
-          sudo bundle install
-      - name: Delete _site if it exists
-        run: |
-          if [ -d "_site" ]; then
-            rm -rf _site/*
-          fi
       - name: Build the search index
         uses: tameney22/search-index-action@master
         id: index
@@ -28,11 +19,23 @@ jobs:
           xml-list: 'b.xml br.xml p.xml t.xml'
           xml-directory: './editions'
           index-directory:  './assets/js/search'
+
+      - name: Install Jekyll
+        run: |
+          gem install bundler jekyll
+          bundle install
+          bundle exec jekyll -v || exit 1
+
+      - name: Delete _site if it exists
+        run: |
+          if [ -d "_site" ]; then
+            rm -rf _site/*
+          fi
       - name: Build site
         run: |
           bundle exec jekyll build
           rm -rf .jekyll-cache
-      - name: Commit newly built files
+      - name: Deploy build
         run: | 
           git config user.name "${GITHUB_ACTOR}"
           git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
