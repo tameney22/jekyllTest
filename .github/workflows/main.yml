@@ -1,4 +1,4 @@
-name: Create Search Index, then Build and deploy Jekyll site
+name: Create Search Index, Build then Deploy Jekyll site
 
 on:
   push:
@@ -6,21 +6,21 @@ on:
       - master
 
 jobs:
-  github-pages:
-    name: CreateBuild and Deploy Jekyll Site
+  generate-build-deploy:
+    name: Create, Build and Deploy Jekyll Site
     runs-on: ubuntu-latest
     steps:
       - name: Checkout master branch
         uses: actions/checkout@v2
-      # - name: Install Jekyll
-      #   run: |
-      #     sudo gem install bundler jekyll
-      #     sudo bundle install
-      # - name: Delete _site if it exists
-      #   run: |
-      #     if [ -d "_site" ]; then
-      #       rm -rf _site/*
-      #     fi
+      - name: Install Jekyll
+        run: |
+          sudo gem install bundler jekyll
+          sudo bundle install
+      - name: Delete _site if it exists
+        run: |
+          if [ -d "_site" ]; then
+            rm -rf _site/*
+          fi
       - name: Build the search index
         uses: tameney22/search-index-action@master
         id: index
@@ -28,17 +28,23 @@ jobs:
           xml-list: 'b.xml br.xml p.xml t.xml'
           xml-directory: './editions'
           index-directory:  './assets/js/search'
-      # - name: Build site
-      #   run: bundle exec jekyll build
-      # - name: Commit newly built files
-      #   run: | 
-      #     git config --local user.email "${{ secrets.GIT_EMAIL }}"
-      #     git config --local user.name "tameney22"
-      #     git add .
-      #     git commit -m "Workflow job: Create search index and build"
-      #     git push
-      # - uses: helaili/jekyll-action@master
-      #   env:
-      #     JEKYLL_PAT: ${{ secrets.JEKYLL_PAT }}
-      - name: Build and deploy the site to './docs' on the master branch
-        uses: victoriadrake/jekyll-cd@master
+      - name: Build site
+        run: |
+          bundle exec jekyll build
+          rm -rf .jekyll-cache
+      - name: Commit newly built files
+        run: | 
+          git config user.name "${GITHUB_ACTOR}"
+          git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
+          git add .
+          git commit -am "Deploy with ${GITHUB_WORKFLOW}"
+          git push --all -f https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+      # git config --local user.email "${{ secrets.GIT_EMAIL }}"
+      # git config --local user.name "tameney22"
+      # git add .
+      # git commit -m "Workflow job: Create search index and build"
+      # git push
+
+    
+      # - name: Build and deploy the site to './docs' on the master branch
+      #   uses: victoriadrake/jekyll-cd@master
