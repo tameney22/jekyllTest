@@ -12,15 +12,15 @@ jobs:
     steps:
       - name: Checkout master branch
         uses: actions/checkout@v2
-      - name: Install Jekyll
-        run: |
-          sudo gem install bundler jekyll
-          sudo bundle install
-      - name: Delete _site if it exists
-        run: |
-          if [ -d "_site" ]; then
-            rm -rf _site/*
-          fi
+      # - name: Install Jekyll
+      #   run: |
+      #     sudo gem install bundler jekyll
+      #     sudo bundle install
+      # - name: Delete _site if it exists
+      #   run: |
+      #     if [ -d "_site" ]; then
+      #       rm -rf _site/*
+      #     fi
       - name: Build the search index
         uses: tameney22/search-index-action@master
         id: index
@@ -28,15 +28,17 @@ jobs:
           xml-list: 'b.xml br.xml p.xml t.xml'
           xml-directory: './xmls'
           index-directory:  './output/inHere'
-      - name: Build site
-        run: bundle exec jekyll build
-      - name: Commit newly built files
-        run: | 
-          git config --local user.email "${{ secrets.GIT_EMAIL }}"
-          git config --local user.name "tameney22"
-          git add .
-          git commit -m "Workflow job: Create search index and build"
-          git push
+      # - name: Build site
+      #   run: bundle exec jekyll build
+      # - name: Commit newly built files
+      #   run: | 
+      #     git config --local user.email "${{ secrets.GIT_EMAIL }}"
+      #     git config --local user.name "tameney22"
+      #     git add .
+      #     git commit -m "Workflow job: Create search index and build"
+      #     git push
       # - uses: helaili/jekyll-action@master
       #   env:
       #     JEKYLL_PAT: ${{ secrets.JEKYLL_PAT }}
+      - name: Build and deploy the site to './docs' on the master branch
+        uses: victoriadrake/jekyll-cd@master
