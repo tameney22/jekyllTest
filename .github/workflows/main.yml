@@ -18,37 +18,6 @@ jobs:
         with:
           xml-list: 'b.xml br.xml p.xml t.xml'
           xml-directory: './editions'
-          index-directory:  './assets/js/search'
-
-      # - name: Install Jekyll
-      #   run: |
-      #     gem install bundler jekyll
-      #     bundle install
-      #     bundle exec jekyll -v || exit 1
-
-      # - name: Delete _site if it exists
-      #   run: |
-      #     if [ -d "_site" ]; then
-      #       rm -rf _site/*
-      #     fi
-      # - name: Build site
-      #   run: |
-      #     bundle exec jekyll build
-      #     rm -rf .jekyll-cache
-      # - name: Deploy build
-      #   run: | 
-      #     git config user.name "${GITHUB_ACTOR}"
-      #     git config user.email "${GITHUB_ACTOR}@users.noreply.github.com"
-      #     git add .
-      #     git commit -am "Deploy with ${GITHUB_WORKFLOW}"
-      #     git push --all -f https://${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-
-      # git config --local user.email "${{ secrets.GIT_EMAIL }}"
-      # git config --local user.name "tameney22"
-      # git add .
-      # git commit -m "Workflow job: Create search index and build"
-      # git push
-
-    
-      - name: Build and deploy the site to './docs' on the master branch
+          index-directory:  './assets/js/search'    
+      - name: Build and deploy the site to './_site' on the master branch
         uses: tameney22/jekyll-cd@master
