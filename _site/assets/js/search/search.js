@@ -80,7 +80,7 @@ fetch("../assets/js/search/index.json")
                 <div class="card">
                     <div class="card-body">
                         <p class="card-text">${lineText}</p>
-                        <a href="../${shortName}-edition/${shortName}-edition-${slug}.html?lineNum=${lineNum}" class="card-link">Go Here</a>
+                        <a href="../${shortName}-edition/${shortName}-edition-${slug}.html?lineNum=${lineNum}" class="card-link">Line Number: ${lineNum}</a>
                     </div>
                 </div>
                 `);
