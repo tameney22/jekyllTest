@@ -14,13 +14,16 @@
     animation-name: blink;
     animation-duration: 2s;
     animation-iteration-count: 3;
+    padding: 3px;
+    border-radius: 7px;
   }
 
   .number {
     color: white;
     background-color: green;
-    padding: 3px;
+    padding: 2px 7px;
     border-radius: 5px;
+    float: right;
   }
 </style>
 
@@ -95,13 +98,6 @@
           </div>
         {% endif %}
           
-
-          <!-- Testing line number checkbox -->
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="checkbox" id="showLineNums" value="showLineNums">
-            <label class="form-check-label" for="showLineNums">Show line numbers</label>
-          </div>
-
           <!-- Toggles for showing divs -->
           <div class="form-check form-check-inline">
             <input class="form-check-input toggleDiv" type="checkbox" id="showTEI" value="TEI" checked>
@@ -152,9 +148,7 @@
 
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 
-<script>
-  // ADD LINE NUMBERS
-  
+<script>  
   // CODE TO HIDE A PAGE
   function showPage(page) {
     // Hide all text that does not belong to the page indicated
@@ -327,57 +321,44 @@ $("input[name='notes'").change(function(){
 
   // Check every 100ms if element exists before trying to highlight and scroll to it
   var checkExist = setInterval(function() {
-  if ($(`tei-l[n="${lineNum}"]`).length) {
-    if (lineNum) {
-      const lineText = $(`tei-l[n="${lineNum}"]`).html();
-      
-      $('#TEI').animate({
-        scrollTop:  $(`tei-l[n="${lineNum}"]`).offset().top - $(`tei-l[n="${lineNum}"]`).parent().offset().top
-      }, 'slow');
-      
-      $(`tei-l[n="${lineNum}"]`).html(`<span id="highlight">${lineText}</span>`);
+    if ($(`tei-l`).length) {
+      if ($(`tei-l[n="${lineNum}"]`).length) {
+        if (lineNum) {
+          const lineText = $(`tei-l[n="${lineNum}"]`).html();
+          
+          $('#TEI').animate({
+            scrollTop:  $(`tei-l[n="${lineNum}"]`).offset().top - $(`tei-l[n="${lineNum}"]`).parent().offset().top
+          }, 'slow');
+          
+          $(`tei-l[n="${lineNum}"]`).html(`<span id="highlight">${lineText}</span>`);
+        }
+      }
+      clearInterval(checkExist);
     }
-    clearInterval(checkExist);
+  }, 100); 
+
+// Always display line numbers, after waiting for the tei-l's to load
+var teiLExist = setInterval(function() {
+  if ($(`tei-l`).length) {
+    $('tei-l').each(function() {
+        var lineNum = $(this).attr('n');
+        if ($(this).text() != "" && lineNum % 5 == 0) {
+          this.innerHTML = `${this.innerHTML} <span class="number">${lineNum}</span>`;
+        }
+      });
+    clearInterval(teiLExist);
   }
 }, 100); 
-
-// The logic for line number display and toggle
-var loaded = false;
-$("#showLineNums").change(function() {
-  var value = $(this).attr('value');
-    if(this.checked) {
-      console.log("CHECKED")
-      //Do stuff
-      if (!loaded) {
-        loaded = true;
-        $('tei-l').each(function() {
-          console.log("REACHED")
-          var lineNum = $(this).attr('n');
-          if ($(this).text() != "" && lineNum % 5 == 0) {
-            this.innerHTML = `<span class="number">${lineNum}</span> ${this.innerHTML}`;
-          }
-        });
-      } else {
-        $(".number").show();
-      }
-    } else {
-      console.log("UNCHECKED")
-      $(".number").hide();
-    }
-});
 
 // Logic to toggle showing divs
 $(".toggleDiv").change(function() {
   var value = $(this).attr('value');
-    if(this.checked) {
-      $(`#${value}`).show();
-    } else {
-      $(`#${value}`).hide();
-    }
+  if(this.checked) {
+    $(`#${value}`).show();
+  } else {
+    $(`#${value}`).hide();
+  }
 });
-
-
-
 
 </script>
 
